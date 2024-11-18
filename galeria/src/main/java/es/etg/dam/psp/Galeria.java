@@ -1,6 +1,7 @@
 package es.etg.dam.psp;
 
 public class Galeria {
+    public static final int NUMERO_OBRAS_SIMULTANEAS = 1;
     public static final int NUMERO_OBRAS = 10;
     private static Galeria exposicion;
     private int obra = 0;
@@ -16,7 +17,7 @@ public class Galeria {
 
 
     public synchronized void ponerObra(int numObra) throws InterruptedException {
-        while (this.obra == 1) {
+        while (this.obra >= NUMERO_OBRAS_SIMULTANEAS) {
             wait();
         }
         this.obra++;
@@ -36,7 +37,7 @@ public class Galeria {
     public int getObra(){
         return obra;
     }
-
+    //Solo para pruebas
     public void reiniciarExposicion(){
         obra = 0;
     }
